@@ -61,6 +61,9 @@ impl Stream for MessageStream {
     type Item = Result<EchoResponse, Status>;
 
     fn poll_next(mut self: Pin<&mut Self>, _: &mut Context<'_>) -> Poll<Option<Self::Item>> {
+        if self.message == "SILENCE!" {
+            return Poll::Pending;
+        }
         if self.count < 3 {
             self.count += 1;
             Poll::Ready(Some(Ok(EchoResponse {

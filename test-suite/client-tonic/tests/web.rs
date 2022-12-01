@@ -1,9 +1,7 @@
 use client::proto::{echo_client::EchoClient, EchoRequest};
-use wasm_bindgen_test::{wasm_bindgen_test, wasm_bindgen_test_configure};
 
-wasm_bindgen_test_configure!(run_in_browser);
 
-#[wasm_bindgen_test]
+#[tokio::test]
 async fn test_echo() {
     let mut client = EchoClient::default();
 
@@ -18,7 +16,7 @@ async fn test_echo() {
     assert_eq!(response.message, "echo(John)");
 }
 
-#[wasm_bindgen_test]
+#[tokio::test]
 async fn test_echo_stream() {
     let mut client = EchoClient::default();
 
@@ -42,7 +40,7 @@ async fn test_echo_stream() {
     assert!(response.is_none());
 }
 
-#[wasm_bindgen_test]
+#[tokio::test]
 async fn test_infinite_echo_stream() {
     let mut client = EchoClient::default();
 
@@ -66,7 +64,7 @@ async fn test_infinite_echo_stream() {
     assert!(response.is_some());
 }
 
-#[wasm_bindgen_test]
+#[tokio::test]
 async fn test_echo_pending() {
     let mut client = EchoClient::default();
 
